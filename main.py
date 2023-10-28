@@ -42,8 +42,12 @@ def parens_match_iterative(mylist):
     >>>parens_match_iterative(['('])
     False
     """
-    ### TODO
-    pass
+    match = iterate(parens_update,0,mylist)
+
+    if match == 0:
+      return True
+    else:
+      return False
 
 
 def parens_update(current_output, next_input):
@@ -58,8 +62,11 @@ def parens_update(current_output, next_input):
     Returns:
       the updated value of `current_output`
     """
-    ###TODO
-    pass
+    if next_input == "(":
+      current_output += 1
+    elif next_input == ")":
+      current_output -= 1
+    return current_output
 
 
 def test_parens_match_iterative():
@@ -84,12 +91,18 @@ def parens_match_scan(mylist):
     >>>parens_match_scan(['(', 'a', ')'])
     True
     >>>parens_match_scan(['('])
-    False
+    False +
     
     """
-    ###TODO
-    pass
+    mapped_list = list(map(paren_map, mylist))
+    map_scan = scan(lambda x,y: x+y, 0, mapped_list)
+    reduce_scan = reduce(min_f, 0, map_scan[0])
 
+    if (map_scan[1] == 0) and reduce_scan >= 0:
+      return True
+    else:
+      return False
+      
 def scan(f, id_, a):
     """
     This is a horribly inefficient implementation of scan
